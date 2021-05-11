@@ -1,0 +1,25 @@
+---
+# manage mysql configuration
+- name: "Calculate result trasnsmission-daemon config with transmission_settings"
+  set_fact:
+    transmission_result_config : "{{ transmission_default_settings['common'] | combine(transmission_default_settings[ansible_distribution], recursive=True) | combine(transmission_settings, recursive=True) }}"
+  when: transmission_settings != None
+
+- name: "Calculate result trasnsmission-daemon config"
+  set_fact:
+    transmission_result_config : "{{ transmission_default_settings['common'] | combine(transmission_default_settings[ansible_distribution], recursive=True) }}"
+  when: transmission_settings == None
+
+- name: "Convert trasnsmission-daemon config to json"
+  set_fact:
+    transmission_json_config : "{{ transmission_result_config | to_nice_json }}"
+
+- name: "write transmission config"
+  template:
+    src: settings.json.j2
+    dest: "{{ transmission_home[ansible_distribution] }}"
+    owner: "{{ transmission_user }}"
+    group: "{{ transmission_group }}"
+    mode: '0644'
+  notify:
+     - restart transmission daemon

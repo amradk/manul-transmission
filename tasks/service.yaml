@@ -1,0 +1,6 @@
+---
+- name: Start transmission-daemon service, if not started
+  service:
+    name: "{{ transmission_service_name[ansible_distribution] }}"
+    state: started
+    enabled: yes

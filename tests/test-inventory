@@ -1,0 +1,6 @@
+[fbsd]
+fbsd ansible_host=192.168.20.10
+
+[fbsd:vars]
+ansible_python_interpreter=/usr/local/bin/python3.7
+ansible_user=vagrant

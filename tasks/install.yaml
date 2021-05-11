@@ -1,0 +1,34 @@
+---
+# install transmission packages
+- name: install transmission daemon package {{ transmission_daemon_pkg_name[ansible_distribution] }}
+  pkgng:
+    name: "{{ transmission_daemon_pkg_name[ansible_distribution] }}-{{ transmission_daemon_version[ansible_distribution] }}"
+    state: present
+  when: transmission_install_daemon|bool == true
+
+- name: install transmission web package {{ transmission_web_pkg_name[ansible_distribution] }}
+  pkgng:
+    name: "{{ transmission_web_pkg_name[ansible_distribution] }}-{{ transmission_web_version[ansible_distribution] }}"
+    state: present
+  when: transmission_install_web|bool == true
+
+- name: create group
+  group:
+    name: "{{ transmission_group }}"
+    state: present
+
+- name: create user
+  user:
+    name: "{{ transmission_user }}"
+    state: present
+    append: yes
+    create_home: yes
+    group: "{{ transmission_group }}"
+    home: "{{ transmission_home[ansible_distribution] }}"
+
+- name: manage config dir
+  file:
+    path: "{{ transmission_config_file_path[ansible_distribution] | dirname }}"
+    owner: "{{ transmission_user }}"
+    group: "{{ transmission_group }}"
+    mode: "754"

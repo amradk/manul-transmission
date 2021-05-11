@@ -1,0 +1,9 @@
+---
+- name: install transmission packages
+  include_tasks: "{{ role_path }}/tasks/install.yaml"
+
+- name: configure transmission daemon
+  include_tasks: "{{ role_path }}/tasks/config.yaml"
+
+- name: start transmission server
+  include_tasks: "{{ role_path }}/tasks/service.yaml"

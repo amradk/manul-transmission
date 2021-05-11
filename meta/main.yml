@@ -1,0 +1,22 @@
+galaxy_info:
+  author: manul
+  description: Simple role to install and configure transmission daemon and web intarface to it
+  # company: your company (optional)
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: FreeBSD
+      versions:
+      - 12
+
+  galaxy_tags: [torrent]
+  
+dependencies: []
+  

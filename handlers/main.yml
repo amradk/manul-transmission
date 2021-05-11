@@ -1,0 +1,6 @@
+---
+# handlers file for mysql
+- name: restart transmission daemon
+  service:
+    name: "{{ transmission_service_name[ansible_distribution] }}"
+    state: restarted
